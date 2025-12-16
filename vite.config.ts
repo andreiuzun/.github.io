@@ -1,13 +1,13 @@
-
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 import basicSsl from '@vitejs/plugin-basic-ssl'
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({ command }) => ({
+  base: './',
   plugins: [
-    basicSsl(),
+    ...(command === 'serve' ? [basicSsl()] : []),
     react(),
     VitePWA({
       registerType: 'autoUpdate',
@@ -32,4 +32,4 @@ export default defineConfig({
       }
     })
   ],
-})
+}))
